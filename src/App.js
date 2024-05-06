@@ -1,10 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+
+import './App.css'
+import Recipe from './component/Recipe'
+import recipe from './component/recipe.css'
+import image1 from './image1.jpeg' 
 
 function App() {
   return (
     <div className="App">
-       <h1>Component JS</h1>
+      <div className='image'>
+        <img src={image1} alt=""/>
+      </div>
+       <Recipe />
     </div>
   );
 }
