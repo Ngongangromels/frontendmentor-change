@@ -11,8 +11,8 @@
     
  }
 
- .line {
-    border-bottom: 2px solid hsl(30, 18%, 87%);
+ hr {
+    color: hsl(30, 18%, 87%);
     margin-left: 50px;
     margin-right: 50px;
       }
@@ -74,3 +74,23 @@ span{
 
 }
 
+table {
+    border-collapse: collapse;
+    width: 100%;
+    position: relative;
+    margin-bottom: 50px;
+   
+    
+  }
+
+  .border{
+    border-bottom: 1px solid hsl(14, 70%, 46%);
+  }
+
+  td {
+    padding-top: 15px;
+    padding-bottom: 10px;
+    
+  }
+
+ 
