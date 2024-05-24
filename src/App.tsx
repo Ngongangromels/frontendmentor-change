@@ -3,39 +3,45 @@ import logo from './logo.svg';
 import './App.css';
 import { getfaqAccordionById } from './server/server1';
 import { TfaqAccordion } from './type/typeComponent';
-import { Tprops } from './type';
-import desktop from './assets/images/desktop.svg'
+import { BackgroundImage } from './component/BackgroundImage';
 import iconStar from './assets/images/iconStar.svg'
 import { FaqAccordion } from './component/FaqsAccordion';
 function App() {
   const [faqsAccordion, setfaqAccordion] = useState<TfaqAccordion[] | null >(null)
   const [loading, setLoading] = useState<boolean>(true)
+
+const [activeId, setActiveId] = useState(0)
+  const toogleClick = (id: number) => setActiveId(id)
+
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const faqAccordion = await getfaqAccordionById();
+      const faqAccordion = await getfaqAccordionById(1);
       setTimeout(() => {
         setfaqAccordion(faqAccordion);
         setLoading(false);
-      }, 2000);
+      }, 3500);
     })();
   }, []);
 
   return (
     <div className="App">
-     <img src={desktop} />
+      <BackgroundImage  />
      <section className='faqs'>
       <h1>
         {/* image */}
         <img className='icon-star' src={iconStar} />
         <span className='title'>FAQs</span>
       </h1>
-      <div className='faqAccordion'>
-      {/* This checks whether faqsAccordion has an element in the current index (id) before accessing its properties.  */}
-        {faqsAccordion?.map((d, id) =>
-           <FaqAccordion faq={faqsAccordion?.[id]} key={id} />
-       )} 
-      </div>
+      { loading ? <p className='loading'>Loading....</p> : <div className='faqAccordion'>
+        {faqsAccordion?.map((faq, id) =>
+           <FaqAccordion 
+           faq={faq}
+            key={id}
+            activeId={activeId}
+            toogleAccordion={toogleClick}
+             />
+       )}</div> }
      </section>
     </div>
 

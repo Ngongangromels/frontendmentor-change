@@ -1,4 +1,8 @@
-
+.loading {
+  text-align: center;
+  font-size: 25px;
+  color: hsl(267, 93%, 53%);
+}
 
 .faqs{
   padding: auto;
