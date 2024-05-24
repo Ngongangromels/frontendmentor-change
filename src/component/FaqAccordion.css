@@ -1,0 +1,26 @@
+.faqQuestion {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    /* color:   hsl(262, 100%, 29%); */
+    font-weight: bold;
+}
+
+.faqQuestion:hover{
+     color:   hsl(262, 84%, 68%); 
+}
+
+.question{
+    font-weight: bold;
+}
+
+.iconPlus-minus {
+    position: relative;
+    top: -5px;
+   
+}
+
+.answer {
+    color: rgb(177, 177, 177);
+    font-weight: 400;
+}
