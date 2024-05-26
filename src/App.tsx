@@ -13,9 +13,9 @@ function App() {
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const faqAccordion = await getAccordionData();
+      const data = await getAccordionData();
       setTimeout(() => {
-        setFaqs(faqAccordion);
+        setFaqs(data);
         setLoading(false);
       }, 3500);
     })();
