@@ -1,25 +1,21 @@
-import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
+import { useState, useEffect } from "react";
 import "./App.css";
-import { getfaqAccordionById } from "./server/server1";
-import { TfaqAccordion } from "./type/typeComponent";
-import { BackgroundImage } from "./component/BackgroundImage";
+import { getFaqAccordionData as getAccordionData } from "./server/server1";
+import { FaqItem } from "./type";
+import { BackgroundImage } from "./components/BackgroundImage";
 import iconStar from "./assets/images/iconStar.svg";
-import { FaqAccordion } from "./component/FaqsAccordion";
-function App() {
-  const [faqsAccordion, setfaqAccordion] = useState<TfaqAccordion[] | null>(
-    null
-  );
-  const [loading, setLoading] = useState<boolean>(true);
+import { Accordion } from "./components/Accordion";
 
-  const [activeId, setActiveId] = useState<number | undefined>();
+function App() {
+  const [faqs, setFaqs] = useState<FaqItem[] | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const faqAccordion = await getfaqAccordionById(1);
+      const faqAccordion = await getAccordionData();
       setTimeout(() => {
-        setfaqAccordion(faqAccordion);
+        setFaqs(faqAccordion);
         setLoading(false);
       }, 3500);
     })();
@@ -31,22 +27,13 @@ function App() {
       <section className="faqs">
         <h1>
           {/* image */}
-          <img className="icon-star" src={iconStar} />
+          <img className="icon-star" alt="icon star" src={iconStar} />
           <span className="title">FAQs</span>
         </h1>
         {loading ? (
           <p className="loading">Loading....</p>
         ) : (
-          <div className="faqAccordion">
-            {faqsAccordion?.map((faq, id) => (
-              <FaqAccordion
-                faq={faq}
-                key={id}
-                activeId={activeId}
-                onClick={setActiveId}
-              />
-            ))}
-          </div>
+          <Accordion items={faqs!} />
         )}
       </section>
     </div>
