@@ -21,7 +21,7 @@ export const  FaqAccordion: React.FC<Props> = ({faq,  activeId,  toogleAccordion
              {/* question */}
             <p onClick={() => toogleAccordion(faq.id)} className="faqQuestion">
                 <span className="question">{faq.question}</span>
-              { active ? (<img className="iconPlus-minus" src= { iconMinus} alt="icon-plus" />) :
+              { active ? (<img  className="iconPlus-minus" src= { iconMinus} alt="icon-plus" />) :
 
                 (<img className="iconPlus-minus" src={iconPlus} alt="Icon-minus" />)}
             </p>

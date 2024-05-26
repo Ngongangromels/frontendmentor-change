@@ -11,7 +11,14 @@ function App() {
   const [loading, setLoading] = useState<boolean>(true)
 
 const [activeId, setActiveId] = useState(0)
-  const toogleClick = (id: number) => setActiveId(id)
+  const toogleClick = (id: number) => {
+    if(id != activeId){
+         
+      setActiveId(id)
+    }else{
+      setActiveId(0)
+    }
+  } 
 
   useEffect(() => {
     (async () => {
@@ -26,7 +33,7 @@ const [activeId, setActiveId] = useState(0)
 
   return (
     <div className="App">
-      <BackgroundImage  />
+      <BackgroundImage />
      <section className='faqs'>
       <h1>
         {/* image */}
