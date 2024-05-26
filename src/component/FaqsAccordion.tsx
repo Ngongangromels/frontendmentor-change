@@ -7,7 +7,7 @@ import iconMinus from "../assets/images/iconMinus.svg";
 interface Props {
   faq: TfaqAccordion;
   onClick: (id: number) => void;
-  activeId: number;
+  activeId?: number;
 }
 
 export const FaqAccordion: React.FC<Props> = ({ faq, activeId, onClick }) => {
@@ -24,14 +24,14 @@ export const FaqAccordion: React.FC<Props> = ({ faq, activeId, onClick }) => {
         className="faqQuestion"
       >
         <span className="question">{faq.question}</span>
-        {active ? (
+        {open ? (
           <img className="iconPlus-minus" src={iconMinus} alt="icon-plus" />
         ) : (
           <img className="iconPlus-minus" src={iconPlus} alt="Icon-minus" />
         )}
       </p>
       {/* answer */}
-      {active && <p className="answer">{faq.answer} </p>}
+      {open && <p className="answer">{faq.answer} </p>}
     </div>
   );
 };

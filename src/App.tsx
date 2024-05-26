@@ -12,7 +12,7 @@ function App() {
   );
   const [loading, setLoading] = useState<boolean>(true);
 
-  const [activeId, setActiveId] = useState(0);
+  const [activeId, setActiveId] = useState<number | undefined>();
 
   useEffect(() => {
     (async () => {
