@@ -3,8 +3,15 @@ import { FaqItem } from "../type";
 import "./FaqAccordion.css";
 import iconPlus from "../assets/images/iconPlus.svg";
 import iconMinus from "../assets/images/iconMinus.svg";
+import { on } from "events";
 
-export const Accordion: React.FC<{ items: FaqItem[] }> = ({ items = [] }) => {
+type Props = {
+  items: Record<any, any>[];
+  renderTitle: (data: Record<any, any>) => React.ReactNode;
+  renderContent: (data: Record<any, any>) => React.ReactNode;
+  retrieveContent: (data: Record<string, string>) => Promise<any>;
+};
+export const Accordion: React.FC<Props> = (props) => {
   const [activeId, setActiveId] = useState<number | undefined>();
   const handleClick = (id: number) => {
     if (id === activeId) {
@@ -16,10 +23,13 @@ export const Accordion: React.FC<{ items: FaqItem[] }> = ({ items = [] }) => {
   };
   return (
     <div className="faqAccordion">
-      {items.map((faq, id) => (
+      {props.items.map((item, id) => (
         <AccordionItem
-          faq={faq}
+          data={item}
           key={id}
+          renderTitle={props.renderTitle}
+          renderContent={props.renderContent}
+          retrieveContent={props.retrieveContent}
           activeId={activeId}
           onClick={handleClick}
         />
@@ -29,31 +39,45 @@ export const Accordion: React.FC<{ items: FaqItem[] }> = ({ items = [] }) => {
 };
 
 interface AccordionItemProps {
-  faq: FaqItem;
+  data: Record<any, any>;
+  renderTitle: (data: Record<any, any>) => React.ReactNode;
+  renderContent: (data: any) => React.ReactNode;
   onClick: (id: number) => void;
+  retrieveContent: (data: Record<string, string>) => Promise<any>;
   activeId?: number;
 }
 
 const AccordionItem: React.FC<AccordionItemProps> = ({
-  faq,
   activeId,
   onClick,
+  data,
+  renderTitle,
+  renderContent,
+  retrieveContent,
 }) => {
-  const open = activeId === faq.id;
+  const open = activeId === data.id;
+  const [content, setContent] = useState<any>();
   return (
     <div className="blocAccordion">
       <hr />
-      {/* question */}
-      <p onClick={() => onClick(faq.id)} className="faqQuestion">
-        <span className="question">{faq.question}</span>
+      {/* title */}
+      <p
+        onClick={async () => {
+          const response = await retrieveContent(data);
+          setContent(response);
+          onClick(data.id);
+        }}
+        className="faqQuestion"
+      >
+        <span className="question">{renderTitle(data)}</span>
         {open ? (
           <img className="iconPlus-minus" src={iconMinus} alt="icon-plus" />
         ) : (
           <img className="iconPlus-minus" src={iconPlus} alt="Icon-minus" />
         )}
       </p>
-      {/* answer */}
-      {open && <p className="answer">{faq.answer} </p>}
+      {/*  content */}
+      {open && <div className="answer">{renderContent(content)} </div>}
     </div>
   );
 };
